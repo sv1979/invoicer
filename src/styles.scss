@@ -1,17 +1,47 @@
+@import "../node_modules/normalize.css";
 body {
-    background-color: #d6fce3;
-    color: rgb(63, 63, 59);
+  background-color: #def0e49c;
+  color: rgb(63, 63, 59);
+  font-size: 16px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  }
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 350px auto 350px;
+  grid-template-rows: auto;
+  grid-column-gap: 1vw;
+}
+
+.styled_form {
+  padding: 1vw;
+  select,
+  input,
+  textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
     font-size: 16px;
+    line-height: 1.4;
+    padding: 0.5rem;
+    border-radius: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    border: 1px solid #ddd;
+    outline: none !important;
   }
-  
-  h3, p {
-    text-align: center;
+  [type="submit"] {
+    background-color: #080;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    &:hover {
+      background-color: rgb(3, 109, 3);
+    }
   }
-  
-  h3 {
-    font-size: 32px;
-  }
-  
-  p {
-    font-size: 22px;
-  }
+}
