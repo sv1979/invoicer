@@ -1,0 +1,12 @@
+@mixin flex($direction:row, $wrap:nowrap,$align_items:center,$align_content: center,$justify_content: center){
+    display: flex;
+    flex-direction: $direction;
+    align-items: $align_items;
+    align-content: $align_content;
+    justify-content: $justify_content;
+}
+
+.no_appearance {
+    appearance: none;
+    -webkit-appearance: none;
+}

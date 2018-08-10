@@ -1,4 +1,6 @@
 @import "../node_modules/normalize.css";
+@import "./helpers/mixins.scss";
+
 body {
   background-color: #def0e49c;
   color: rgb(63, 63, 59);
@@ -30,10 +32,10 @@ body {
     line-height: 1.4;
     padding: 0.5rem;
     border-radius: 0;
-    appearance: none;
-    -webkit-appearance: none;
     border: 1px solid #ddd;
     outline: none !important;
+    white-space: pre-wrap;
+    @extend .no_appearance;
   }
   [type="submit"] {
     background-color: #080;
@@ -43,5 +45,41 @@ body {
     &:hover {
       background-color: rgb(3, 109, 3);
     }
+  }
+}
+
+.m_b_t_5 {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+h2, h3, h4, h5 {
+  font-weight: 400;
+}
+
+.bold_font {
+  font-weight: bold;
+}
+
+.invoice {
+  &__form {
+    @include flex(row,nowrap,center,center,flex-start);
+  }
+  &__form_element {
+    padding: .5rem 0;
+    margin-right: .5rem;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  [type=text], [type=number]{
+    background-color: transparent;
+    border-width: 0 0 1px 0;
+    outline: none!important;
+    font-size: 16px;
+    line-height: 1.4;
+    padding: 0.5rem 0;
+    border-radius: 0;
+    border-color: #000;
+    @extend .no_appearance;
   }
 }

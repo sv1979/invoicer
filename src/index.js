@@ -1,22 +1,29 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { render } from "react-dom";
+
+import Helpers from "./helpers/helpers";
+
 import "./styles.scss";
 
 import Customers from "./components/customers.js";
 import Owndata from "./components/owndata.js";
 import Invoicetemplate from "./components/invoicetemplate.js";
 
+const helpers = new Helpers();
+
 let all_customers = {
   //TODO: get data from database
   customer_base: [
     {
       name: "AASS",
-      address: "31"
+      address: "31",
+      currency: "NZD"
     },
     {
       name: "DDDD",
-      address: "28"
+      address: "28",
+      currency: "USD"
     }
   ]
 };
@@ -28,7 +35,7 @@ let own_data = {
   ird_number: "111235654",
   gst_number: "345567876",
   bank_account: "42144445566543",
-  account_details: "ANZ Bank New Zealand Limited /n SWIFT code: ANZBNZ22",
+  account_details: "ANZ Bank New Zealand Limited\n SWIFT code: ANZBNZ22",
   rate: 40,
   gst_rate: 15
 };
@@ -46,7 +53,8 @@ class App extends React.Component {
     this.state = {
       customer: {
         customerName: "",
-        customerAddress: ""
+        customerAddress: "",
+        currency: "NZD"
       },
       own: {
         own_name: own_data.name,
@@ -68,7 +76,8 @@ class App extends React.Component {
       {
         customer: {
           customerName: arguments[0].customer_data.name,
-          customerAddress: arguments[0].customer_data.address
+          customerAddress: arguments[0].customer_data.address,
+          currency: arguments[0].customer_data.currency
         }
       },
       () => {}
@@ -82,8 +91,8 @@ class App extends React.Component {
         own: {
           own_name: arguments[0].own_data.name,
           own_address: arguments[0].own_data.address,
-          own_ird_number: arguments[0].own_data.ird_number,
-          own_gst_number: arguments[0].own_data.gst_number,
+          own_ird_number: helpers.formatNumber(arguments[0].own_data.ird_number),
+          own_gst_number: helpers.formatNumber(arguments[0].own_data.gst_number),
           own_bank_account: arguments[0].own_data.bank_account,
           own_account_details: arguments[0].own_data.account_details,
           own_rate: arguments[0].own_data.rate,
@@ -108,6 +117,7 @@ class App extends React.Component {
           invoiceNumber={invoice_number + 1}
           invoiceDate={formattedDate(invoice_date)}
           dueDate={formattedDate(due_date)}
+          currency={this.state.currency}
         />
         <Owndata setOwndata={this.setupOwndata} ownData={own_data} />
         <div>cc</div>
