@@ -11,7 +11,7 @@ class Owndata extends React.Component {
       own_gst_number: this.props.ownData.gst_number,
       own_bank_account: this.props.ownData.bank_account,
       own_account_details: this.props.ownData.account_details,
-      own_rate: this.props.ownData.rate,
+      // own_rate: this.props.ownData.rate,
       own_gst_rate: this.props.ownData.gst_rate
     };
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -20,7 +20,7 @@ class Owndata extends React.Component {
     this.handleGstChange = this.handleGstChange.bind(this);
     this.handleBankChange = this.handleBankChange.bind(this);
     this.handleAccDetailsChange = this.handleAccDetailsChange.bind(this);
-    this.handleRateChange = this.handleRateChange.bind(this);
+    // this.handleRateChange = this.handleRateChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setOwndata = this.setOwndata.bind(this);
   }
@@ -47,9 +47,9 @@ class Owndata extends React.Component {
   handleAccDetailsChange(event) {
     this.setState({ own_account_details: event.target.value });
   }
-  handleRateChange(event) {
-    this.setState({ own_rate: event.target.value });
-  }
+  // handleRateChange(event) {
+  //   this.setState({ own_rate: event.target.value });
+  // }
   onSelectChanged(event) {
     this.setState({ own_gst_rate: event.target.value });
   }
@@ -61,7 +61,7 @@ class Owndata extends React.Component {
       gst_number: this.state.own_gst_number,
       bank_account: this.state.own_bank_account,
       account_details: this.state.own_account_details,
-      rate: this.state.own_rate,
+      // rate: this.state.own_rate,
       gst_rate: this.state.own_gst_rate
     };
     this.props.setOwndata({ own_data });
@@ -111,12 +111,12 @@ class Owndata extends React.Component {
             value={this.state.own_account_details}
             onChange={this.handleAccDetailsChange}
           />
-          <input
+          {/* <input
             type="text"
             name="own_rate"
             value={this.state.own_rate}
             onChange={this.handleRateChange}
-          />
+          /> */}
           <select
             name="own_gst_rate"
             value={this.state.own_gst_rate}

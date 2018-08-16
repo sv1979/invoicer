@@ -36,7 +36,7 @@ let own_data = {
   gst_number: "345567876",
   bank_account: "42144445566543",
   account_details: "ANZ Bank New Zealand Limited\n SWIFT code: ANZBNZ22",
-  rate: 40,
+  // rate: 40,
   gst_rate: 15
 };
 
@@ -63,7 +63,7 @@ class App extends React.Component {
         own_gst_number: own_data.gst_number,
         own_bank_account: own_data.bank_account,
         own_account_details: own_data.account_details,
-        own_rate: own_data.rate,
+        // own_rate: own_data.rate,
         own_gst_rate: own_data.gst_rate
       }
     };
@@ -95,7 +95,7 @@ class App extends React.Component {
           own_gst_number: helpers.formatNumber(arguments[0].own_data.gst_number),
           own_bank_account: arguments[0].own_data.bank_account,
           own_account_details: arguments[0].own_data.account_details,
-          own_rate: arguments[0].own_data.rate,
+          // own_rate: arguments[0].own_data.rate,
           own_gst_rate: arguments[0].own_data.gst_rate
         }
       },

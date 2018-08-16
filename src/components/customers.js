@@ -72,17 +72,20 @@ class Customers extends React.Component {
             name="customer_name"
             value={this.state.newCustomerName}
             onChange={this.handleNameChange}
+            placeholder="Name"
           />
           <textarea
             name="customer_address"
             value={this.state.newCustomerAddress}
             onChange={this.handleAddressChange}
+            placeholder="Address"
           />
           <input
             type="text"
             name="customer_currency"
             value={this.state.newCustomerCurrency}
             onChange={this.handleCurrencyChange}
+            placeholder="Currency"
           />
           <input type="submit" value="Enter customer" />
 

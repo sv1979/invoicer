@@ -2,6 +2,7 @@ import React from "react";
 import { render } from "react-dom";
 import Helpers from "../helpers/helpers";
 import InvoiceForm from "./invoiceform";
+import InvoiceElements from "./invoiceelements";
 
 const helpers = new Helpers();
 
@@ -89,6 +90,7 @@ function BillItems(props) {
         rate={props.rate}
         currency={props.currency}
       />
+      <InvoiceElements elements={props.items} currency={props.currency} />
     </div>
   );
 }

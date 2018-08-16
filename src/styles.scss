@@ -53,7 +53,10 @@ body {
   margin-top: 5px;
 }
 
-h2, h3, h4, h5 {
+h2,
+h3,
+h4,
+h5 {
   font-weight: 400;
 }
 
@@ -63,23 +66,62 @@ h2, h3, h4, h5 {
 
 .invoice {
   &__form {
-    @include flex(row,nowrap,center,center,flex-start);
+    @include flex(row, nowrap, center, center, flex-start);
   }
-  &__form_element {
-    padding: .5rem 0;
-    margin-right: .5rem;
+  &__form_element,
+  &__list_element {
+    padding: 0.5rem 0;
+    margin-right: 0.5rem;
     font-size: 16px;
     line-height: 1.4;
   }
-  [type=text], [type=number]{
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    th {
+      padding: 0.5rem;
+      text-align: left;
+    }
+
+  }
+  &__td {
+    padding: 0.5rem;
+  }
+  &__list_element {
+    @include flex(row, nowrap, center, center, flex-start);
+  }
+  &__list_element_note {
+    flex: 1 0 120px;
+    border-bottom: 1px solid #000;
+    margin-right: 0.5rem;
+  }
+  &__list_element_quantity {
+    flex: 1 0 250px;
+    border-bottom: 1px solid #000;
+    margin-right: 0.5rem;
+    display: flex;
+    align-items: center;
+  }
+  &__list_element_rate,
+  &__list_element_total {
+    flex: 1 0 120px;
+    border-bottom: 1px solid #000;
+    margin-right: 0.5rem;
+  }
+  [type="text"],
+  [type="number"],
+  select {
     background-color: transparent;
     border-width: 0 0 1px 0;
-    outline: none!important;
+    outline: none !important;
     font-size: 16px;
     line-height: 1.4;
     padding: 0.5rem 0;
     border-radius: 0;
     border-color: #000;
     @extend .no_appearance;
+  }
+  select {
+    padding: 0.5rem 1rem;
   }
 }
