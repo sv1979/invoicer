@@ -118,7 +118,7 @@ class App extends React.Component {
           invoiceDate={formattedDate(invoice_date)}
           dueDate={formattedDate(due_date)}
           currency={this.state.currency}
-        />
+                  />
         <Owndata setOwndata={this.setupOwndata} ownData={own_data} />
         <div>cc</div>
       </main>

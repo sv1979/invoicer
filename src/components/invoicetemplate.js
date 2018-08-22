@@ -90,7 +90,7 @@ function BillItems(props) {
         rate={props.rate}
         currency={props.currency}
       />
-      <InvoiceElements elements={props.items} currency={props.currency} />
+      <InvoiceElements elements={props.items} currency={props.currency} remove_line={props.remove_line}/>
     </div>
   );
 }
@@ -114,6 +114,15 @@ class Invoicetemplate extends React.Component {
     });
   }
 
+  remove_line = (id) => {
+    let new_items = this.state.items;
+    new_items.splice(id,1);
+
+    this.setState({
+      items: new_items
+    })
+  }
+
   render() {
     let total_amount =
       this.state.amount +
@@ -122,7 +131,8 @@ class Invoicetemplate extends React.Component {
     return (
       <div className="invoice">
         <h2 className="invoice__header">
-          Tax Invoice #{this.props.invoiceNumber}
+          <span className="invoice_number"> Tax Invoice #{this.props.invoiceNumber}</span>
+          <span className="invoice_date"> Date: {this.props.invoiceDate}</span>
         </h2>
         <div className="invoice__own_data">
           <OwnDetails owndata={this.props.ownData} />
@@ -151,7 +161,8 @@ class Invoicetemplate extends React.Component {
             createInvoiceItem={this.createInvoiceItem}
             rate={this.props.ownData.own_rate}
             currency={this.props.customerData.currency}
-          />
+            remove_line={this.remove_line.bind(this)}
+            />
           <BillTotal
             amount={this.state.amount}
             gst_rate={this.props.ownData.own_gst_rate}
