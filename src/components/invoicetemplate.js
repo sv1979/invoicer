@@ -20,7 +20,8 @@ function CustomerDetails(props) {
   let address =
     props.customer.customerAddress !== "" ? (
       <span>
-        <br />Address: {props.customer.customerAddress}
+        <br />
+        Address: {props.customer.customerAddress}
       </span>
     ) : (
       ""
@@ -90,7 +91,12 @@ function BillItems(props) {
         rate={props.rate}
         currency={props.currency}
       />
-      <InvoiceElements elements={props.items} currency={props.currency} remove_line={props.remove_line}/>
+      <InvoiceElements
+        elements={props.items}
+        currency={props.currency}
+        remove_line={props.remove_line}
+        update_line={props.update_line}
+      />
     </div>
   );
 }
@@ -101,7 +107,8 @@ class Invoicetemplate extends React.Component {
     this.state = {
       amount: 90,
       items: [],
-      newItem: {}
+      newItem: {},
+      newitem_id: 1
     };
     this.createInvoiceItem = this.createInvoiceItem.bind(this);
   }
@@ -109,29 +116,55 @@ class Invoicetemplate extends React.Component {
   createInvoiceItem(data) {
     console.log(arguments);
     let new_item = arguments[0].item_data;
+    new_item.id = this.state.newitem_id;
+
     this.setState({
+      newitem_id: this.state.newitem_id + 1,
       items: [...this.state.items, new_item]
     });
   }
 
-  remove_line = (id) => {
-    let new_items = this.state.items;
-    new_items.splice(id,1);
+  remove_line = id => {
+    console.log("remove ", id);
+    //var new_items = this.state.items.filter((el)=>{ return el.id !== id });
+    //console.log('n',new_items);
+    //new_items.splice(id, 1);
+    //console.log('n2',new_items);
+    let new_items = this.state.items.filter(el => {
+      return el.id !== id;
+    });
 
     this.setState({
       items: new_items
-    })
-  }
+    });
+    console.log("w", this.state.items);
+    this.forceUpdate();
+  };
+
+  update_line = (id, obj) => {
+    console.log(id, obj);
+    var new_items = this.state.items;
+    new_items[id] = obj;
+    this.setState({
+      items: new_items
+    });
+    console.log("z", this.state.items);
+  };
 
   render() {
     let total_amount =
       this.state.amount +
       (this.state.amount * parseFloat(this.props.ownData.own_gst_rate)) / 100;
 
+    let invoice_items = this.state.items;
+
     return (
       <div className="invoice">
         <h2 className="invoice__header">
-          <span className="invoice_number"> Tax Invoice #{this.props.invoiceNumber}</span>
+          <span className="invoice_number">
+            {" "}
+            Tax Invoice #{this.props.invoiceNumber}
+          </span>
           <span className="invoice_date"> Date: {this.props.invoiceDate}</span>
         </h2>
         <div className="invoice__own_data">
@@ -157,15 +190,16 @@ class Invoicetemplate extends React.Component {
             currency={this.props.customerData.currency}
           />
           <BillItems
-            items={this.state.items}
+            items={invoice_items}
             createInvoiceItem={this.createInvoiceItem}
             rate={this.props.ownData.own_rate}
             currency={this.props.customerData.currency}
-            remove_line={this.remove_line.bind(this)}
-            />
+            remove_line={this.remove_line}
+            update_line={this.update_line}
+          />
           <BillTotal
             amount={this.state.amount}
-            gst_rate={this.props.ownData.own_gst_rate}
+            gst_rate={parseFloat(this.props.ownData.own_gst_rate)}
             currency={this.props.customerData.currency}
           />
         </div>

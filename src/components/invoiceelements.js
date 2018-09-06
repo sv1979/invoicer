@@ -9,22 +9,22 @@ class InvoiceElements extends React.Component {
     this.state = {};
   }
 
-//   remove_line = (id) => {
-//       console.log(id);
-//   }
+  // remove_line = id => {
+  //   console.log('---',id);
+  // };
 
   render() {
     let allElements = this.props.elements.map((el, idx) => {
       return (
         <InvoiceListElement
-          index={idx}  
-          job_note={el.job_note}
+          index={el.id}
           quantity={el.quantity}
           units={el.units}
           rate={el.rate}
           key={idx}
-        //   remove_line={this.remove_line.bind(this)}
+          job_note={el.job_note}
           remove_line={this.props.remove_line}
+          update_line={this.props.update_line}
         />
       );
     });

@@ -15,16 +15,28 @@ class InvoiceListElement extends React.Component {
   componentDidMount(){
     this.setState({
        job_note: this.props.job_note,
-       quantity: this.props.quantity,
-       rate: this.props.rate,
+       quantity: parseFloat(this.props.quantity),
+       units: this.props.units,
+       rate: parseFloat(this.props.rate),
        });
   }
-
+  componentWillReceiveProps(props) {
+    console.log(props);
+  }
   handleInputChange(event) {
     this.setState({ [event.target.name]: event.target.value });
+    this.props.update_line(this.props.index, this.state);
   }
 
   render() {
+
+    let total_number = parseFloat(this.state.quantity) * parseFloat(this.state.rate);
+
+    let removeline = () => { 
+      this.props.remove_line(this.props.index);
+      this.forceUpdate();
+     }
+
     return (
       <tr className="invoice__tr" key={this.props.index}>
         <td className="invoice__td standard_border">
@@ -50,7 +62,7 @@ class InvoiceListElement extends React.Component {
           )}
         </td>
         <td className="invoice__td standard_border">
-          {parseFloat(this.props.quantity) * parseFloat(this.props.rate)}
+          {isNaN(total_number) ? 0 : total_number}
         </td>
         <td className="invoice__td no_border">
           <button
@@ -58,7 +70,7 @@ class InvoiceListElement extends React.Component {
           >
             E
           </button>
-          <button onClick={() => this.props.remove_line(this.props.index)}>
+          <button onClick={ removeline }>
             X
           </button>
         </td>

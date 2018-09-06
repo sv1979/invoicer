@@ -10,30 +10,20 @@ class InvoiceForm extends React.Component {
         rate: '',
         units: 'hours'
     };
-    this.handleJobNote = this.handleJobNote.bind(this);
-    this.handleQuantity = this.handleQuantity.bind(this);
-    this.handleRate = this.handleRate.bind(this);
     this.handleUnits = this.handleUnits.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.setItem = this.setItem.bind(this);
 
   }
 
-handleJobNote(event){
-    this.setState({ job_note: event.target.value })
-}
-
-handleQuantity(event){
-    this.setState({ quantity: event.target.value })
-}
-
-handleRate(event){
-    this.setState({ rate: event.target.value })
-}
-
 handleUnits(event){
     this.setState({ units: event.target.value })
 }
+
+handleInputChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
 
 handleSubmit(event) {
     event.preventDefault();
@@ -64,10 +54,10 @@ setItem(){
         <div className="invoice__item">
             <form onSubmit={this.handleSubmit} className="invoice__form">
                 <div className="invoice__form_element">
-                    <input type='text' onChange={this.handleJobNote} value={this.state.job_note} placeholder="Description" />
+                    <input type='text' onChange={this.handleInputChange} name="job_note" value={this.state.job_note} placeholder="Description" />
                 </div>
                 <div className="invoice__form_element">
-                    <input type='text' onChange={this.handleQuantity} value={this.state.quantity} placeholder="Quantity" />
+                    <input type='number' onChange={this.handleInputChange} name="quantity" value={this.state.quantity} placeholder="Quantity" />
                 </div>
                 <div className="invoice__form_element">
                     {/* <input type='text' onChange={this.handleUnits} value={this.state.units} placeholder="Units" /> */}
@@ -80,7 +70,7 @@ setItem(){
                 </div>
                 <div className="invoice__form_element">
                     <span>
-                        <input type='number' onChange={this.handleRate} value={this.state.rate} placeholder={placeholder_rate} />
+                        <input type='number' onChange={this.handleInputChange} name="rate" value={this.state.rate} placeholder={placeholder_rate} />
                     </span>
                 </div>
                 <div className="invoice__form_element">
