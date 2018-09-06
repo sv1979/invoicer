@@ -6,18 +6,39 @@ import InvoiceListElement from "./invoicelistelement";
 class InvoiceElements extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      elements: []
+    };
+  }
+  componentDidMount() {
+    this.state = {
+      elements: this.props.elements
+    };
   }
 
   // remove_line = id => {
   //   console.log('---',id);
   // };
 
+  componentWillReceiveProps(props) {
+    console.log('p2',props);
+    this.setState({
+      elements: props.elements
+    });
+    //this.forceUpdate();
+  }
+
+  componentDidMount(){
+    this.setState({
+      elements: this.state.elements
+    });
+  }
+
   render() {
-    let allElements = this.props.elements.map((el, idx) => {
+    let allElements = this.state.elements.map((el, idx) => {
       return (
         <InvoiceListElement
-          index={el.id}
+          id={el.id}
           quantity={el.quantity}
           units={el.units}
           rate={el.rate}
@@ -34,6 +55,7 @@ class InvoiceElements extends React.Component {
         <table className="invoice__table">
           <thead>
             <tr>
+              <th></th>
               <th className="standard_border">Description</th>
               <th className="standard_border">Quantity</th>
               <th className="standard_border">Rate, {this.props.currency}</th>

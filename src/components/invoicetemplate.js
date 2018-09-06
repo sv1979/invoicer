@@ -83,24 +83,6 @@ function BillTotal(props) {
   );
 }
 
-function BillItems(props) {
-  return (
-    <div className="invoice__items">
-      <InvoiceForm
-        createInvoiceItem={props.createInvoiceItem.bind(this)}
-        rate={props.rate}
-        currency={props.currency}
-      />
-      <InvoiceElements
-        elements={props.items}
-        currency={props.currency}
-        remove_line={props.remove_line}
-        update_line={props.update_line}
-      />
-    </div>
-  );
-}
-
 class Invoicetemplate extends React.Component {
   constructor(props) {
     super(props);
@@ -111,6 +93,7 @@ class Invoicetemplate extends React.Component {
       newitem_id: 1
     };
     this.createInvoiceItem = this.createInvoiceItem.bind(this);
+    this.remove_line = this.remove_line.bind(this);
   }
 
   createInvoiceItem(data) {
@@ -130,24 +113,30 @@ class Invoicetemplate extends React.Component {
     //console.log('n',new_items);
     //new_items.splice(id, 1);
     //console.log('n2',new_items);
-    let new_items = this.state.items.filter(el => {
+    const new_items = this.state.items.filter(el => {
       return el.id !== id;
     });
-
+    this.setState({items:[]});
+    console.log('scs',this.state.items);
     this.setState({
       items: new_items
     });
+    
+    console.log('ni:', new_items);
+
     console.log("w", this.state.items);
-    this.forceUpdate();
+
   };
 
   update_line = (id, obj) => {
     console.log(id, obj);
-    var new_items = this.state.items;
-    new_items[id] = obj;
-    this.setState({
-      items: new_items
-    });
+    if(obj){
+      var new_items = this.state.items.filter((el)=>{ return el.id !== obj.id });
+      new_items[id] = obj;
+      this.setState({
+        items: new_items
+      });
+    }
     console.log("z", this.state.items);
   };
 
@@ -189,14 +178,19 @@ class Invoicetemplate extends React.Component {
             dueDate={this.props.dueDate}
             currency={this.props.customerData.currency}
           />
-          <BillItems
-            items={invoice_items}
-            createInvoiceItem={this.createInvoiceItem}
-            rate={this.props.ownData.own_rate}
-            currency={this.props.customerData.currency}
-            remove_line={this.remove_line}
-            update_line={this.update_line}
-          />
+          <div className="invoice__items">
+            <InvoiceForm
+              createInvoiceItem={this.createInvoiceItem.bind(this)}
+              currency={this.props.customerData.currency}
+              item_id={this.state.newitem_id}
+            />
+            <InvoiceElements
+              elements={this.state.items}
+              currency={this.props.customerData.currency}
+              remove_line={this.remove_line}
+              update_line={this.update_line}
+            />
+          </div>
           <BillTotal
             amount={this.state.amount}
             gst_rate={parseFloat(this.props.ownData.own_gst_rate)}
